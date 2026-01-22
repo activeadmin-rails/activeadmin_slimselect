@@ -6,7 +6,13 @@
 /Gemfile.lock
 /pkg/
 /spec/reports/
-/tmp/
+tmp/
+*.log
+
+# Database files
+*.sqlite3
+*.sqlite3-*
 
 # rspec failure tracking
 .rspec_status
+.rspec_failures

@@ -1,8 +1,21 @@
 AllCops:
   TargetRubyVersion: 3.2
+  NewCops: enable
+  SuggestExtensions: false
+  Exclude:
+    - "spec/dummy/db/schema.rb"
+    - "vendor/**/*"
+    - "tmp/**/*"
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
 Style/StringLiteralsInInterpolation:
   EnforcedStyle: double_quotes
+
+# Disable Metrics cops for test files
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*"
+    - "spec/dummy/app/admin/**/*"
+
