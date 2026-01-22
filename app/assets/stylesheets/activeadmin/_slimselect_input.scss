@@ -1,0 +1,21 @@
+@import "activeadmin/slimselect/slimselect";
+
+.ss-main {
+  width: calc(80% - 22px);
+
+  .ss-single-selected,
+  .ss-multi-selected {
+    padding: 0 5px;
+    min-height: 28px;
+  }
+
+  .ss-values {
+    .ss-value {
+      margin: 2px;
+
+      .ss-value-delete {
+        font-size: 14px;
+      }
+    }
+  }
+}

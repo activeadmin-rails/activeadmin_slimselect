@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "activeadmin_slimselect/version"
+require "activeadmin/slimselect"
 
-module ActiveadminSlimselect
-  class Error < StandardError; end
-  # Your code goes here...
-end
+require "formtastic/inputs/slimselect_input"
+require "activeadmin/inputs/filters/slimselect_input"
