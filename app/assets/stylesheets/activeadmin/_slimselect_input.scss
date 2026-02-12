@@ -1,21 +1,70 @@
 @import "activeadmin/slimselect/slimselect";
 
-.ss-main {
-  width: calc(80% - 22px);
+// ActiveAdmin variables (match _variables.scss)
+$text-input-horizontal-padding: 10px !default;
+$border-width: 1px !default;
+$text-input-total-padding: $text-input-horizontal-padding * 2 + $border-width * 2;
 
-  .ss-single-selected,
-  .ss-multi-selected {
-    padding: 0 5px;
-    min-height: 28px;
+// Override SlimSelect CSS variables to match ActiveAdmin styling
+.ss-main {
+  // Match ActiveAdmin input width (same as text inputs)
+  width: calc(80% - #{$text-input-total-padding});
+  
+  // Match ActiveAdmin input padding: 8px top, 10px horizontal, 7px bottom
+  min-height: auto;
+  padding: 8px $text-input-horizontal-padding 7px;
+  
+  // Match ActiveAdmin border styling
+  border: $border-width solid #c9d0d6;
+  border-radius: 3px;
+  
+  // Match ActiveAdmin background (white, not gray)
+  background-color: #fff;
+  
+  // Match ActiveAdmin focus styling (gray, not blue)
+  &:focus,
+  &.ss-open {
+    border: $border-width solid #99a2aa;
+    box-shadow: 0 0 4px #99a2aa;
   }
 
   .ss-values {
+    gap: 4px;
+    
+    .ss-single {
+      margin: 0;
+      padding: 0;
+      line-height: 1.1em;
+    }
+    
+    .ss-placeholder {
+      padding: 0;
+      margin: 0;
+      line-height: 1.1em;
+    }
+    
     .ss-value {
-      margin: 2px;
+      margin: 0;
 
       .ss-value-delete {
         font-size: 14px;
       }
     }
+  }
+  
+  .ss-deselect {
+    padding: 0 0 0 6px;
+  }
+  
+  .ss-arrow {
+    margin: auto 0 auto 6px;
+  }
+}
+
+// Filter form specific styling (sidebar)
+.filter_form .filter_form_field {
+  .ss-main {
+    // In filter forms, selects are full width of the sidebar
+    width: 100%;
   }
 }
