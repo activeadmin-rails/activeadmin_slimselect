@@ -5,16 +5,21 @@ on:
 
   pull_request:
 
+env:
+  RAILS_ENV: test
+
 jobs:
   build:
     runs-on: ubuntu-latest
     name: Ruby ${{ matrix.ruby }} / ${{ matrix.asset_pipeline }}
     strategy:
+      fail-fast: false
       matrix:
         ruby:
           - '3.4.4'
         asset_pipeline:
           - sprockets
+          - propshaft
 
     steps:
       - uses: actions/checkout@v4
@@ -27,6 +32,12 @@ jobs:
           bundler-cache: true
         env:
           BUNDLE_GEMFILE: gemfiles/${{ matrix.asset_pipeline }}.gemfile
+      - name: Build Propshaft assets
+        if: matrix.asset_pipeline == 'propshaft'
+        run: bundle exec rails dartsass:build
+        working-directory: spec/dummy
+        env:
+          BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.asset_pipeline }}.gemfile
       - name: Set up Chrome
         uses: browser-actions/setup-chrome@v1
         with:
