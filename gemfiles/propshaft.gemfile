@@ -1,0 +1,29 @@
+# frozen_string_literal: true
+
+# Gemfile variant for testing with Propshaft (instead of Sprockets)
+
+source "https://rubygems.org"
+
+gemspec path: ".."
+
+group :development, :test do
+  gem "activestorage", "~> 7.0"
+  gem "capybara", "~> 3.39"
+  gem "propshaft"
+  gem "puma", "~> 6.4"
+  gem "rspec_junit_formatter", "~> 0.6"
+  gem "rspec-rails", "~> 6.1"
+  gem "selenium-webdriver", "~> 4.16"
+  gem "simplecov", "~> 0.22"
+  gem "sqlite3", "~> 1.7"
+
+  # Tools
+  gem "pry-rails"
+end
+
+gem "activeadmin-rails", "~> 1.8"
+gem "csv"
+gem "irb"
+gem "logger"
+gem "ostruct"
+gem "rake", "~> 13.0"

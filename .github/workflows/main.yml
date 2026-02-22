@@ -10,11 +10,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Ruby ${{ matrix.ruby }}
+    name: Ruby ${{ matrix.ruby }} / ${{ matrix.asset_pipeline }}
     strategy:
       matrix:
         ruby:
           - '3.4.4'
+        asset_pipeline:
+          - sprockets
+          - propshaft
 
     steps:
       - uses: actions/checkout@v4
@@ -25,9 +28,20 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
+        env:
+          BUNDLE_GEMFILE: gemfiles/${{ matrix.asset_pipeline }}.gemfile
       - name: Set up Chrome
         uses: browser-actions/setup-chrome@v1
         with:
           chrome-version: stable
+      - name: Prepare Propshaft stylesheet
+        if: matrix.asset_pipeline == 'propshaft'
+        run: cp spec/dummy/app/assets/stylesheets/active_admin_propshaft.scss spec/dummy/app/assets/stylesheets/active_admin.scss
+      - name: Pre-compile CSS with dartsass
+        if: matrix.asset_pipeline == 'propshaft'
+        run: |
+          cd spec/dummy && RAILS_ENV=test BUNDLE_GEMFILE=${{ github.workspace }}/gemfiles/${{ matrix.asset_pipeline }}.gemfile bundle exec rails dartsass:build
       - name: Run the default task
         run: bundle exec rake
+        env:
+          BUNDLE_GEMFILE: gemfiles/${{ matrix.asset_pipeline }}.gemfile
