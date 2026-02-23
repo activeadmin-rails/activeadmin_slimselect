@@ -39,8 +39,11 @@ RSpec.describe "SlimSelect inputs", type: :system do
       visit "/admin/posts/#{post.id}/edit"
 
       find(slimselect_main).click
-      # SlimSelect renders dropdown in document.body, so we need to find globally
+      # SlimSelect renders dropdown in document.body, wait for it to be visible
+      expect(page).to have_css(".ss-content.ss-open", visible: true)
       find(".ss-option", text: "John 1").click
+      # Wait for dropdown to close, confirming selection was registered
+      expect(page).to have_no_css(".ss-content.ss-open")
       find('[type="submit"]').click
       expect(page).to have_content("was successfully updated")
       expect(post.reload.author).to eq(authors.find { |item| item.name == "John 1" })
@@ -61,8 +64,14 @@ RSpec.describe "SlimSelect inputs", type: :system do
       visit "/admin/posts/#{post.id}/edit"
 
       find(slimselect_main).click
-      # SlimSelect renders dropdown in document.body, so we need to find globally
+      # SlimSelect renders dropdown in document.body, wait for it to be visible
+      expect(page).to have_css(".ss-content.ss-open", visible: true)
       find(".ss-option", text: "A tag 1").click
+      # Wait for selection to be registered (multi-select stays open, check for selected value)
+      expect(page).to have_css(".ss-value-text", text: "A tag 1")
+      # Close dropdown by clicking outside
+      find("body").click
+      expect(page).to have_no_css(".ss-content.ss-open")
       scroll_to(find("#post_submit_action"))
       find('[type="submit"]').click
       expect(page).to have_content("was successfully updated")
