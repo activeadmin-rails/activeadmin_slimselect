@@ -1,0 +1,22 @@
+# frozen_string_literal: true
+
+source "https://rubygems.org"
+
+gemspec path: ".."
+
+group :development, :test do
+  gem "activestorage", "~> 7.0"
+  gem "capybara", "~> 3.39"
+  gem "dartsass-sprockets"
+  gem "puma", "~> 6.4"
+  gem "rspec-rails", "~> 6.1"
+  gem "selenium-webdriver", "~> 4.16"
+  gem "simplecov", "~> 0.22"
+  gem "sqlite3", "~> 1.7"
+end
+
+gem "activeadmin-rails", "~> 1.7"
+gem "csv"
+gem "logger"
+gem "ostruct"
+gem "rake", "~> 13.0"
