@@ -7,6 +7,7 @@
 *gemfile.lock
 /pkg/
 /spec/reports/
+/spec/dummy/app/assets/builds/
 tmp/
 *.log
 node_modules/
