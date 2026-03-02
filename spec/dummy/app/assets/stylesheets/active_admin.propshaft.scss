@@ -1,0 +1,8 @@
+// Propshaft CSS entry point for dummy app
+// This imports ActiveAdmin base styles and slimselect styles
+// The gem paths are passed via --load-path in the build command
+
+@import "active_admin/mixins";
+@import "active_admin/base";
+@import "activeadmin/slimselect/slimselect";
+@import "activeadmin/slimselect_input";

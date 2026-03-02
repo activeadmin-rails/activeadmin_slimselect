@@ -14,5 +14,9 @@ module Dummy
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # dartsass-rails compiles SCSS → CSS into app/assets/builds/.
+    # Ensure the asset pipeline (Propshaft or Sprockets) can find them.
+    config.assets.paths << Rails.root.join("app/assets/builds")
   end
 end
