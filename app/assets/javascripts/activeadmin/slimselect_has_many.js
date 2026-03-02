@@ -3,8 +3,7 @@
 //
 // ActiveAdmin fires `has_many_add:after` via jQuery `.trigger()`, but
 // slimselect_input.js listens with native `document.addEventListener`.
-// jQuery custom events do NOT propagate as native DOM events, so we
-// re-dispatch them here.
-$(document).on('has_many_add:after', function () {
+$(document).on('has_many_add:after', function (e) {
+  if (e.originalEvent) return  // native event, don't re-dispatch
   document.dispatchEvent(new Event('has_many_add:after'))
 })
