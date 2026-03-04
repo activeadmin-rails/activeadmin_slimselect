@@ -1,33 +1,42 @@
 # ActiveAdmin SlimSelect
 
-An Active Admin plugin to use [SlimSelect.js](https://slimselectjs.com/) (no jQuery required).
+An Active Admin plugin to use [SlimSelect.js](https://slimselectjs.com/).
 
 Features:
 - Modern select inputs with search
 - AJAX content loading
 - Single and multiple selection support
-- No jQuery dependency
-- Turbo and Turbolinks compatible
 
 ## Install
 
-- Add to your Gemfile:
-  ```ruby
-  gem 'activeadmin_slimselect'
-  ```
-- Execute bundle
-- Add at the end of your ActiveAdmin styles (_app/assets/stylesheets/active_admin.scss_):
-  ```scss
-  @import 'activeadmin/slimselect_input';
-  ```
-- Add at the end of your ActiveAdmin javascripts (_app/assets/javascripts/active_admin.js_):
-  ```js
-  //= require activeadmin/slimselect/slimselect
-  //= require activeadmin/slimselect_input
-  ```
-- Use the input with `as: :slimselect` in Active Admin model conf
+Add to your Gemfile and run `bundle install`:
 
-Why 2 separated scripts? This way you can include a different version of SlimSelect.js if you prefer.
+```ruby
+gem 'activeadmin_slimselect'
+```
+
+Then use the input with `as: :slimselect` in your Active Admin resource configuration.
+
+### With Propshaft
+
+No additional setup required — the gem automatically registers its JavaScript and CSS with ActiveAdmin.
+
+### With Sprockets
+
+Add to your ActiveAdmin styles (_app/assets/stylesheets/active_admin.scss_):
+
+```scss
+@import 'activeadmin/slimselect_input';
+```
+
+Add to your ActiveAdmin javascripts (_app/assets/javascripts/active_admin.js_):
+
+```js
+//= require activeadmin/slimselect/slimselect
+//= require activeadmin/slimselect_input
+```
+
+Why two separated scripts? This way you can include a different version of SlimSelect.js if you prefer.
 
 ## Usage
 
