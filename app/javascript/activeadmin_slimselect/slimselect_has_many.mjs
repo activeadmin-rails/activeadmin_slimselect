@@ -6,7 +6,9 @@
 // jQuery custom events do NOT propagate as native DOM events, so we
 // re-dispatch them here.
 if (typeof jQuery !== 'undefined') {
-  jQuery(document).on('has_many_add:after', function () {
+  jQuery(document).on('has_many_add:after', function (e) {
+    if (e.originalEvent) return
+
     document.dispatchEvent(new Event('has_many_add:after'))
   })
 }
