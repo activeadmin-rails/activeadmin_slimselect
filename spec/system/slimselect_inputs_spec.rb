@@ -44,8 +44,10 @@ RSpec.describe "SlimSelect inputs", type: :system do
       find(".ss-option", text: "John 1").click
       # Wait for dropdown to close, confirming selection was registered
       expect(page).to have_no_css(".ss-content.ss-open")
-      find('[type="submit"]').click
-      expect(page).to have_content("was successfully updated")
+      scroll_to(find("#post_submit_action"))
+      find("#post_submit_action input[type='submit']").click
+      expect(page).to have_current_path(%r{/admin/posts/#{post.id}})
+      expect(page).to have_text("was successfully updated")
       expect(post.reload.author).to eq(authors.find { |item| item.name == "John 1" })
     end
   end
@@ -67,10 +69,9 @@ RSpec.describe "SlimSelect inputs", type: :system do
       # SlimSelect renders dropdown in document.body, wait for it to be visible
       expect(page).to have_css(".ss-content.ss-open", visible: true)
       find(".ss-option", text: "A tag 1").click
-      # Wait for selection to be registered (multi-select stays open, check for selected value)
-      expect(page).to have_css(".ss-value-text", text: "A tag 1")
-      # Close dropdown by clicking outside
-      find("body").click
+      # Wait for the hidden select to reflect the new multi-select state.
+      expect(page).to have_select("post[tag_ids][]", visible: :hidden, selected: [tags.last.name, "A tag 1"])
+      # closeOnSelect defaults to true, so wait for the dropdown to finish closing
       expect(page).to have_no_css(".ss-content.ss-open")
       scroll_to(find("#post_submit_action"))
       find('[type="submit"]').click
